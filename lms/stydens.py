@@ -53,15 +53,20 @@ def load_students():
 
 def dump_csv():
     with open('data/student_data.csv', 'w') as file:
-        csv.DictWriter(file, STUDENTS)
+        writer = csv.DictWriter(file, fieldnames=student_fields)
+        writer.writeheader()
+        for student in STUDENTS:
+            writer.writerow(student)
 
 def dump_json():
     with open('data/student_data.json', 'w') as file:
         json.dump(STUDENTS, file)
 
 def load_csv(file_path='data/student_data.csv'):
-    with open(file_path, 'r') as read_file:
-        STUDENTS.extend(csv.reader(read_file))
+    with open(file_path, 'r') as file:
+        reader = csv.DictReader(file)
+        for index in reader:
+            STUDENTS.append(index)
 
 
 
