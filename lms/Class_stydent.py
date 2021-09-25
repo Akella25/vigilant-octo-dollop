@@ -1,6 +1,13 @@
-class Student:
-
+class Group:
     student = []
+
+    def __init__(self,name):
+        self.name = name
+
+
+class Student(Group):
+
+
 
     def __init__(self, name,last_name,email, age, address, gender):
         self.name = name
@@ -12,11 +19,6 @@ class Student:
         Student.student.append(self.name)
 
 
-class Group(Student):
-
-
-    def __init__(self,name):
-        self.name = name
 
 
 
