@@ -16,7 +16,7 @@ class Student(Group):
         self.address = address
         self.age = age
         self.gender = gender
-        Student.student.append(self.name)
+        Group.student.append(self.name)
 
 
 
@@ -24,7 +24,7 @@ class Student(Group):
 
 
 tud = Student('Tim','Kolins','ddd@mail', 22, 'sdfdfffff','man')
-ud = Student('Ti5555','Kolins','ddd@mail', 22, 'sdfdfffff','man')
+ud = Student('Ti5','Kolins','ddd@mail', 22, 'sdfdfffff','man')
 
 opg = Group('jj')
 print(opg.student)
