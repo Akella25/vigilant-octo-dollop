@@ -8,7 +8,7 @@ class Group:
 class Student:
     STUD_LIST = []
 
-    def __init__(self, name='jj', last_name='uu', email='eee', age=55, address='iiyi', gender='kk'):
+    def __init__(self, name='jj', last_name='uu', email='e@ee', age=55, address='iiyi', gender='kk'):
         self.name = name
         self.last_name = last_name
         self.email = email
@@ -18,7 +18,21 @@ class Student:
         self.STUD_LIST.append(Student)
         Group.student.append(self.name)
 
+    @property
+    def email(self):
+        return self._email
 
+    @email.setter
+    def email(self, email):
+        self._email = email
+
+        if '@' not in self._email[0] and '@' not in self._email[-1] and '@' in self._email:
+            return ('your email is accepted')
+
+
+        else:
+
+            print('your email is not correct')
 
     def __str__(self):
         return self.name
@@ -53,13 +67,17 @@ class Student:
 
 
 
-tud = Student('Tim', 'Kolins', 'ddd@mail', 22, 'sdfdfffff', 'man')
-ud = Student('Ti5', 'Kolins', 'ddd@mail', 22, 'sdfdfffff', 'man')
-FFF = Student('Ti6', 'Kolins', 'ddd@mail', 22, 'sdfdfffff', 'man')
-stydent = {'name': 'Rik', 'last_name': 'Fool', 'email': 'argdsr@mail.ru', 'age': 20, 'address': 'ssd', 'gender': 'man'}
-opg = Group('jj')
-stud = Student.add_dict(stydent)
-print(stud.age)
+tud = Student('Tim', 'Kolins', 'dd@dmail', 22, 'sdfdfffff', 'man')
+#ud = Student('Ti5', 'Kolins', '@ddd@mail', 22, 'sdfdfffff', 'man')
+#FFF = Student('Ti6', 'Kolins', 'ddd@mail', 22, 'sdfdfffff', 'man')
+#stydent = {'name': 'Rik', 'last_name': 'Fool', 'email': 'argdsr@mail.ru', 'age': 20, 'address': 'ssd', 'gender': 'man'}
+#opg = Group('jj')
+#stud = Student.add_dict(stydent)
+#print(stud.age)
+student = Student('Rik','Dsss','dd@dmail', 22, 'sdfdfffff', 'man')
+student.email = "akell@arrrr"
+print(student.email)
+#print(tud.email)
 
 
 
