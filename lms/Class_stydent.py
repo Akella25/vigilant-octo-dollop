@@ -24,14 +24,11 @@ class Student:
 
     @email.setter
     def email(self, email):
-        self._email = email
 
-        if '@' not in self._email[0] and '@' not in self._email[-1] and '@' in self._email:
+        if '@' not in email[0] and '@' not in email[-1] and '@' in email:
+            self._email = email
             return ('your email is accepted')
-
-
         else:
-
             print('your email is not correct')
 
     def __str__(self):
@@ -74,8 +71,8 @@ tud = Student('Tim', 'Kolins', 'dd@dmail', 22, 'sdfdfffff', 'man')
 #opg = Group('jj')
 #stud = Student.add_dict(stydent)
 #print(stud.age)
-student = Student('Rik','Dsss','dd@dmail', 22, 'sdfdfffff', 'man')
-student.email = "akell@arrrr"
+student = Student('Rik','Dsss','ddd@mail', 22, 'sdfdfffff', 'man')
+student.email = "@akell@arrrr"
 print(student.email)
 #print(tud.email)
 
