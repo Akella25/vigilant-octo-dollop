@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import patch
 from les1 import Task, Dashbord
 
-
 class TestTask(unittest.TestCase):
 
     def test_task_obj(self):
