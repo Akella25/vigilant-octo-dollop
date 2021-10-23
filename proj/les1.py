@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 class Task:
 
+
     def __init__(self, title, time_title=7):
 
         self.due_date = datetime.now() + timedelta(time_title)
