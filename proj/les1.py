@@ -1,6 +1,10 @@
+from datetime import datetime, timedelta
+
 class Task:
 
-    def __init__(self, title):
+    def __init__(self, title, time_title=7):
+
+        self.due_date = datetime.now() + timedelta(time_title)
         self.dane = False
         self.title = title
         self._priority = 1
@@ -14,12 +18,11 @@ class Task:
         return self._priority
 
     @priority.setter
-    def priority(self,value):
-        if value in range(1,11):
+    def priority(self, value):
+        if value in range(1, 11):
             self._priority = value
-
         else:
-            return ('ddddd')
+            raise ValueError('Priority value is out of range')
 
 
 
@@ -28,52 +31,92 @@ class Dashbord:
     def __init__(self):
         self.task_list = []
 
+    def search_task(self):
+
+        search = input('name task\t')
+
+        for task in self.task_list:
+
+            if task.title == search:
+
+                return task.title
 
 
-
+        return 'not found'
 
     def add_task(self):
         task = input('Task name  ')
         new_task = Task(task)
         self.task_list.append(new_task)
 
+    def search_due_date(self):
+        date_now = datetime.now()
+        task_pip = []
+        for task in self.task_list:
+
+            if date_now < task.due_date:
+                task_pip.append(task)
+
+        return task_pip
+
+
+
     def print_all_task(self):
         for task in self.task_list:
             print(task)
 
     def print_tasks_by_priority(self):
-        task_prioryty = int(input('Priority?     '))
-        prioryty_list = []
+        task_priority = int(input('Priority?     '))
+        priority_list = []
 
         for task in self.task_list:
 
-            if task.priority == task_prioryty:
+            if task.priority == task_priority:
 
-                prioryty_list.append(task)
+                priority_list.append(task)
 
-        return prioryty_list
+        return priority_list
+
+    def search_due_date_false(self):
+        date_now = datetime.now()
+        task_pip = []
+        for task in self.task_list:
+
+            if date_now > task.due_date and not task.dane:
+                task_pip.append(task)
+
+        return task_pip
 
 
 
 
+if __name__ == '__main__':
+
+    task1 = Task('test1', 0)
 
 
 
-task1 = Task('dddd')
-task2 = Task('d555ddd')
-task3 = Task('d555ddeeeddd')
-task4 = Task('d555deeewwdd')
-task1.priority = 3
-task2.priority = 5
-task3.priority = 1
-task4.priority = 3
 
-dasr = Dashbord()
+    task2 = Task('test2', 5)
+    task3 = Task('test3', 8)
+    task4 = Task('test4', -1)
+
+    task2.dane = True
+    task3.dane = True
+    task4.dane = True
+    dash = Dashbord()
+    dash.task_list.extend([task1, task2, task3, task4])
+    #print(dash.task_list)
+    for i in dash.search_due_date_false():
+        print(i)
+
+
+#dasr = Dashbord()
 #dasr.add_task()
 
 
-dasr.task_list.extend([task1,task2,task3,task4])
-print(dasr.print_tasks_by_priority())
+#dasr.task_list.extend([task1,task2,task3,task4])
+#print(dasr.print_tasks_by_priority())
 
 
 
