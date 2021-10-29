@@ -1,7 +1,45 @@
 from datetime import datetime, timedelta
+import os
+import json
+import csv
+#import googlemaps
+from dataclasses import dataclass
+
+
+class OpenFile:
+
+    def __init__(self, filename, mode):
+        self._file = open(filename, mode)
+
+    def __enter__(self):
+        return self._file
+
+    def __exit__(self, type, value, traceback):
+        self._file.close()
+        return True
+
+
+class Maps:
+
+    def __init__(self, key):
+        self._client = googlemaps.Client(key=key)
+
+    def __enter__(self):
+        return self._client
+
+    def __exit__(self, error_type, value, traceback):
+        del self._client
+        return True
+
+
+@dataclass
+class Tag:
+
+    name: str
+    color: str = 'Yellow'
+
 
 class Task:
-
 
     def __init__(self, title, time_title=7):
 
@@ -9,9 +47,14 @@ class Task:
         self.dane = False
         self.title = title
         self._priority = 1
+        self.location = None
+        self.tag = str(Tag('Default tag'))
 
     def __str__(self):
         return self.title
+
+    def __repr__(self):
+        return 'Task(title=\'{}\')'.format(self.title)
 
 
     @property
@@ -25,6 +68,20 @@ class Task:
         else:
             raise ValueError('Priority value is out of range')
 
+    def add_location(self):
+        place_lookup = input('Enter location name: \t')
+        with Maps(key='###') as gmaps:
+            place = gmaps.find_place(
+                place_lookup,
+                'textquery',
+                fields=['geometry/location', 'name', 'place_id']
+            )
+            if place['status'] == 'OK':
+                self.location = {
+                    'coordinates': place['candidates'][0]['geometry']['location'],
+                    'name': place['candidates'][0]['name'],
+                    'google_id': place['candidates'][0]['place_id']
+                }
 
 
 class Dashbord:
@@ -60,9 +117,8 @@ class Dashbord:
 
         return task_pip
 
-
-
     def print_all_task(self):
+
         for task in self.task_list:
             print(task)
 
@@ -88,6 +144,53 @@ class Dashbord:
 
         return task_pip
 
+    def sort_by_title(self):
+        return sorted(self.task_list,
+                      key=lambda task: task.title)
+
+    def dump_to_json(self):
+        filename = f'tasks_{datetime.now().strftime("%Y%m%d%H%M%S")}.json'
+
+        filepath = os.path.join(os.getcwd(), 'data', filename)
+        task_list = [task.__dict__ for task in self.task_list]
+        with OpenFile(filepath, 'w') as file:
+            json.dump(task_list, file)
+
+
+
+    def load_json(self,file_path=os.path.join(os.getcwd(),'data','tasks_20211025210041.json')):
+        task_list = []
+        with open(file_path, 'r') as read_file:
+            task_list.extend(json.load(read_file))
+
+        return task_list
+
+
+    def dump_csv(self):
+        filename = f'tasks_{datetime.now().strftime("%Y%m%d%H%M%S")}.csv'
+        filepath = os.path.join(os.getcwd(), 'data', filename)
+        task_list = [task.__dict__ for task in self.task_list]
+        with OpenFile(filepath, 'w') as file:
+            print(task_list)
+            writer = csv.DictWriter(file, task_list[0])
+            writer.writeheader()
+            for task in task_list:
+                writer.writerow(task)
+
+
+    def load_csv(self):
+        task_list = []
+        filepath = os.path.join(os.getcwd(), 'data', 'tasks_20211025225909.csv')
+        with OpenFile(filepath, 'r') as file:
+            reader = csv.DictReader(file)
+            for task in reader:
+                task_list.append(task)
+
+
+        return task_list
+
+
+
 
 
 
@@ -106,9 +209,14 @@ if __name__ == '__main__':
     task3.dane = True
     task4.dane = True
     dash = Dashbord()
-    dash.task_list.extend([task1, task2, task3, task4])
+
+
+    dash.task_list.extend([task1,task4])
+    dash.load_csv()
+    #print(dash.load_csv())
+
     #print(dash.task_list)
-    for i in dash.search_due_date_false():
+    for i in dash.load_csv():
         print(i)
 
 

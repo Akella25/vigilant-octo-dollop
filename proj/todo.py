@@ -4,6 +4,26 @@ import unittest
 from unittest.mock import patch
 from les1 import Task, Dashbord
 
+LOCATION_DICT = {
+    'candidates': [
+        {'geometry':
+            {'location': {'lat': 50.5078373, 'lng': 30.4982641}
+        },
+        'name': 'ТРЦ DREAM / DREAM yellow',
+        'place_id': 'ChIJcZlrpBPS1EARl0pK1p4MO9Q'}
+    ],
+    'status': 'OK'}
+
+LOCATION_WITH_ERROR_DICT = {
+    'candidates': [
+        {'geometry':
+            {'location': {'lat': 50.5078373, 'lng': 30.4982641}
+        },
+        'name': 'ТРЦ DREAM / DREAM yellow',
+        'place_id': 'ChIJcZlrpBPS1EARl0pK1p4MO9Q'}
+    ],
+    'status': 'ERROR'}
+
 class TestTask(unittest.TestCase):
 
     def test_task_obj(self):
@@ -113,6 +133,38 @@ class TestTask(unittest.TestCase):
         dash = Dashbord()
         dash.task_list.extend([task1, task2, task3, task4])
         self.assertEqual(len(dash.search_due_date_false()), 1)
+
+
+
+    def test_dump_to_json(self):
+        task1 = Task('D task')
+        task2 = Task('A task')
+        dashboard = Dashbord()
+        dashboard.task_list.extend([task1, task2])
+        dashboard.dump_to_json()
+
+
+
+    def test_load_json(self):
+        task1 = Task('D task')
+        task2 = Task('A task')
+        dashboard = Dashbord()
+        dashboard.task_list.extend([task1, task2])
+        self.assertEqual(len(dashboard.load_json()), 2)
+
+    def test_dump_to_csv(self):
+        task1 = Task('D task')
+        task2 = Task('A task')
+        dashboard = Dashbord()
+        dashboard.task_list.extend([task1, task2])
+        dashboard.dump_csv()
+
+    def test_load_csv(self):
+        task1 = Task('D task')
+        task2 = Task('A task')
+        dashboard = Dashbord()
+        dashboard.task_list.extend([task1, task2])
+        self.assertEqual(len(dashboard.load_csv()), 2)
 
 if __name__ == '__main__':
     unittest.main()
