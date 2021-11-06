@@ -19,45 +19,104 @@
 #     - "/" - повертає список повних імен всіх персон (first_name + last_name), у текстовому представленні.
 #     - "/person/<int:person_id>" - повертає тектове представлення інформації про одного користувача.
 
+# class Skill:
+#     categorys = ['technologies', 'methodologies', 'languages']
+#     def __init__(self,category,name,experience,level):
+#         self.name = name
+#         self.experience = experience
+#         self.level = level
+#         self.category = category
+#
+#         @property
+#         def category(self):
+#             return self._category
+#
+#         @category.setter
+#         def category(self, value):
+#             print(self.categorys)
+#
+#             if value in categorys:
+#                 print('dfg')
+#                 self._category = value
+#             else:
+#                 print('sdfgf')
 class Skill:
-    categorys = ['technologies', 'methodologies', 'languages']
+    categories = ['technologies', 'methodologies', 'languages']
+
     def __init__(self,category,name,experience,level):
         self.name = name
         self.experience = experience
         self.level = level
         self.category = category
 
-        @property
-        def category(self):
-            return self._category
+    @property
+    def category(self):
+        return self._category
 
-        @category.setter
-        def category(self, value):
-            print(self.categorys)
-
-            if value in categorys:
-                print('dfg')
-                self._category = value
-            else:
-                print('sdfgf')
+    @category.setter
+    def category(self, value):
+        if value in self.categories:
+            self._category = value
+        else:
+            raise ValueError('Priority value is out of range')
 
 
 class Contact:
-    pass
+
+
+    def __init__(self,email=None,phone=None):
+        self.email = email
+        self.phone =phone
+
+    # def __str__(self):
+    #     return self.email
+
+    def contact_type(self):
+        type1 = input('email or phone:')
+        if type1 == 'email':
+            self.email = input('email:')
+        elif type1 == 'phone':
+            self.phone = input('phone:')
+        else:
+            print('Tray agen')
+
+
+
+
+
 
 
 class JobExperience:
-    pass
+
+    def __init__(self,start_date=None,end_date=None,company=None,position=None):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.company = company
+        self.position = position
 
 
 
 class Person:
-    pass
+    persons = []
+    def __init__(self,first_name,last_name,birth_date):
+        self.id = len(Person.person) + 1
+        self.first_name = first_name
+        self.last_name = last_name
+        self.birth_date = birth_date
+
+    def print_person(self):
 
 
-skill1 = Skill('technologies','www',3,30)
-skill2 = Skill('false','www',3,30)
-#skill1.category = 'technologies'
-print(skill1.category)
-#skill1.category = 'ssss'
-print(skill2.category)
+
+# skill1 = Skill('technologies','www',3,30)
+# skill2 = Skill('false','www',3,30)
+# #skill1.category = 'technologies'
+# print(skill1.category)
+# #skill1.category = 'ssss'
+# print(skill2.category)
+
+cont = Contact()
+cont.contact_type()
+print(cont.email)
+#print(cont.phone)
+
