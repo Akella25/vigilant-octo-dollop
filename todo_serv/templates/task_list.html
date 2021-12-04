@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="title">Title</label>
+    <input name="title" id="title" required>
+    <label for="priority">Priority</label>
+    <input name="priority" id="priority" required>
+    <input type="submit" value="Add">
+  </form>
+  <br>
+  <ul id="task-list">
+    {% for task in tasks %}
+      <li><a href="{{ url_for('task.task_detail', task_id=task.id) }}"> {{ task.title }} </a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
