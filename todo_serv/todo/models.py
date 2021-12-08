@@ -1,7 +1,7 @@
 import json
 #from ..utilits.bubble_sort import bubble_sort
 #from ..utilits.insertion_sort import *
-#from ..utilits.binary_search import binary_search
+from ..utilits.binary_search import binary_search_id
 class Task:
 
     objects = []
