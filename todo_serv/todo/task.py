@@ -21,10 +21,11 @@ def task_list():
     else:
         order = request.args.get(
             'order', default='', type=str)
+        task = deepcopy(Task.objects)
         if order:
-            bubble_sort(Task.objects, order)
+            bubble_sort(task, order)
         else:
-            insertion_sort(Task.objects)
+            insertion_sort(task)
     return render_template('task_list.html', tasks=Task.objects)
 
 
