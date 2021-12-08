@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+    <nav>
+        <a href="{{ url_for('login') }}">login</a>
+    </nav>
+{% endblock %}
+
+{% block test %}
+<h1>TEST</h1>
+{% endblock %}
+
+{% block  form %}
+<div></div>
+    <form method="post">
+        <label>nickname</label>
+        <input name="nickname" id="nickname"><br>
+        <label>password</label>
+        <input name="password" id="password" type="password"><br>
+        <label>email</label>
+        <input name="email" id="email"><br>
+        <input type="submit" value="Add">
+    </form>
+</div>
+{% endblock %}

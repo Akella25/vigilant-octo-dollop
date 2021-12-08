@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+
+
+{% block test %}
+    <h1>post</h1>
+{% endblock %}
+
+{% block  form %}
+    <form method="post">
+        <label>title</label>
+        <input name="title" id="title"><br>
+         <label>content</label>
+        <input name="content" id="content"><br>
+        <input type="submit" value="Add posts">
+    </form>
+{% endblock %}
+
+{% block my_tests %}
+    {% for post in test %}
+        <h3>{{post.title}}</h3>
+        <p>{{post.content}}</p>
+    {% endfor %}
+{% endblock %}

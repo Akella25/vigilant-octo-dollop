@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+        <nav>
+        <a href="{{ url_for('posts', nickname=user_nickname) }}">posts</a>
+    </nav>
+{% endblock %}
+
+
+{% block test %}
+    <ul>
+        <li>{{user_email}}</li>
+        <li>{{user_nickname}}</li>
+    </ul>
+{% endblock %}
+{% block  form %}
+    <form method="post">
+        <label>Add img</label>
+        <input name="img" id="img" type="url">
+        <input type="submit" value="Add img">
+    </form>
+{% endblock %}
+
+{% block my_test %}
+    {{test}}
+{% endblock %}
