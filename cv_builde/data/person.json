@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "first_name": "sss",
+    "last_name": "gggg",
+    "birth_date": 23,
+    "contact": [
+        {
+            "_contact_type": "email",
+            "value": "sdf@wer"
+        }
+    ],
+    "skills": [
+        {
+            "id": 1,
+            "name": "Igor",
+            "experience": "tttt",
+            "_level": "junior",
+            "_category": "technologies"
+        }
+    ],
+    "experience": [
+        {
+            "id": 1,
+            "start_date": 23,
+            "end_date": 6,
+            "company": "BBS",
+            "position": "junior"
+        }
+    ]
+}
